@@ -10,10 +10,12 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  navigationMenuTriggerStyle,
 } from "./ui/navigation-menu";
 
 import { ListItem } from "./ui/list-item";
+import { useApiRoute } from "@/hooks/useApiRoute";
+import { Client } from "@notionhq/client";
+import { useState } from "react";
 const components = [
   {
     title: "Add Habit Entry Form",
@@ -27,12 +29,14 @@ const components = [
   },
 ];
 export default function Forms() {
-  const { habits } = useZustandFormStore();
-
+  const { habits, addDatabases, setDatabases, databases, setErrors } =
+    useZustandFormStore();
+  const errors = useApiRoute("/api/databases", "fakeid");
+  console.log(errors);
   return (
     <div className="flex border-2 border-red-100 h-full">
       <NavigationMenu>
-        <NavigationMenuList>
+        <NavigationMenuList className="flex flex-col">
           <NavigationMenuItem>
             <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
             <NavigationMenuContent>

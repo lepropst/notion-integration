@@ -1,7 +1,7 @@
+"use client";
 import Forms from "@/components/Forms";
+import { Metadata } from "next";
 
-export default async function Home() {
-  const response = await fetch("/api/databases");
-  console.log(response);
+export default function Home() {
   return <Forms />;
 }

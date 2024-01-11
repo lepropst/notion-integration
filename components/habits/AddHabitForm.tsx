@@ -1,5 +1,4 @@
 import { Habit, useZustandFormStore } from "@/state/form";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { List } from "./List";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,6 +9,7 @@ import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { Separator } from "../ui/separator";
 import { useMemo } from "react";
+import { useForm } from "react-hook-form";
 
 export const addHabitFormSchema = z.object({
   label: z

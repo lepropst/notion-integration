@@ -8,6 +8,8 @@ export interface Habit {
 }
 export interface FormState {
   habits: Habit[];
+  errors: string[];
+  databases: string[];
   setHabit: (
     habit: string,
     entries: { date: Date; value: string | number | boolean }[]
@@ -17,6 +19,9 @@ export interface FormState {
     entries: { date: Date; value: string | number | boolean }[]
   ) => void;
   removeHabit: (habit: string) => void;
+  addDatabases: (databaseId: string) => void;
+  setDatabases: (databases: string[]) => void;
+  setErrors: (errors: string[] | string) => void;
 }
 
 export const useZustandFormStore = create<FormState>()(
@@ -24,6 +29,18 @@ export const useZustandFormStore = create<FormState>()(
     persist(
       (set) => ({
         habits: [],
+        errors: [],
+        databases: [],
+        addDatabases: (databaseId: string) =>
+          set((state) => ({ databases: [...state.databases, databaseId] })),
+        setDatabases: (databases: string[]) =>
+          set((state) => ({ databases: databases })),
+        setErrors: (errors: string[] | string) =>
+          set((state) =>
+            Array.isArray(errors)
+              ? { errors: errors }
+              : { errors: [...state.errors, errors] }
+          ),
         setHabit: (habit, value) =>
           set((state) => ({ habits: { ...state.habits, [habit]: value } })),
         addHabit: (habit, entries) =>

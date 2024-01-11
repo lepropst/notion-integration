@@ -1,3 +1,4 @@
+"use server";
 import { Client } from "@notionhq/client";
 
 const TOKEN = process.env.NOTION_TOKEN;
@@ -15,10 +16,11 @@ const notion = new Client({ auth: TOKEN });
  * - Working with databases guide: https://developers.notion.com/docs/working-with-databases
  */
 
-export async function GET() {
-  return Response.json({
-    databses: await notion.search({
-      filter: { property: "object", value: "database" },
-    }),
+export async function GET(id: string | undefined) {
+  console.log(id);
+  console.log("ROUITE GET");
+  return await notion.search({
+    query: id,
+    filter: { value: "database", property: "object" },
   });
 }
